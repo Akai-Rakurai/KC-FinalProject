@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponScript : MonoBehaviour
 {
@@ -19,11 +20,14 @@ public class WeaponScript : MonoBehaviour
     public LayerMask WhatIsEnemy;
 
     public GameObject MuzzleFlash, BulletHoleGraphic;
-
+    GameObject FlashClone;
+    public Text Ammo;
     private void Start()
     {
         BulletsLeft = MagazineSize;
         ReadyToShoot = true;
+        Ammo.text = BulletsLeft + "/" + MagazineSize;
+
     }
     private void MyInput()
     {
@@ -47,10 +51,12 @@ public class WeaponScript : MonoBehaviour
     {
         BulletsLeft = MagazineSize;
         Reloading = false;
+        Ammo.text = BulletsLeft + "/" + MagazineSize;
     }
     private void ResetShoot()
     {
         ReadyToShoot = true;
+        Ammo.text = BulletsLeft + "/" + MagazineSize;
     }
     private void Shoot()
     {
@@ -64,11 +70,10 @@ public class WeaponScript : MonoBehaviour
         if (Physics.Raycast(fpsCam.transform.position, direction, out RayHit, Range, WhatIsEnemy))
         {
             print(RayHit.collider.name);
-
-
         }
 
-        Instantiate(MuzzleFlash, AttackPoint.position, Quaternion.identity);
+        FlashClone = Instantiate(MuzzleFlash, AttackPoint.position, Quaternion.identity, AttackPoint);
+        Destroy(FlashClone, 1f);
 
         BulletsLeft--;
         BulletsShot--;
