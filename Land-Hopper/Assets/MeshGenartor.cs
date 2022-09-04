@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(MeshFilter))]
 public class MeshGenartor : MonoBehaviour
 {
+    public NavMeshSurface surface;
+
     Mesh mesh;
 
     Vector3[] vertices;
@@ -96,5 +99,6 @@ public class MeshGenartor : MonoBehaviour
         mesh.RecalculateBounds();
         MeshCollider meshCollider = gameObject.GetComponent<MeshCollider>();
         meshCollider.sharedMesh = mesh;
+        surface.BuildNavMesh();
     }
 }

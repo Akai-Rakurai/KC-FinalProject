@@ -69,6 +69,9 @@ public class WeaponScript : MonoBehaviour
 
         if (Physics.Raycast(fpsCam.transform.position, direction, out RayHit, Range, WhatIsEnemy))
         {
+            if (RayHit.collider.CompareTag("Enemy"))
+                //Note to self: Inbetween <> add the name of the enemy script
+                RayHit.collider.GetComponent<EnemyAi2>().TakeDamage(Damage);
             print(RayHit.collider.name);
         }
 
@@ -78,9 +81,9 @@ public class WeaponScript : MonoBehaviour
         BulletsLeft--;
         BulletsShot--;
 
-        Invoke("ResetShoot", TimeBetweenShooting);
+            Invoke("ResetShoot", TimeBetweenShooting);
 
-        if(BulletsShot > 0 && BulletsLeft > 0 && ReadyToShoot)
+        if (BulletsShot > 0 && BulletsLeft > 0 && ReadyToShoot)
         Invoke("Shoot", TimeBetweenShots);
     }
     private void FixedUpdate()
