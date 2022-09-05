@@ -21,16 +21,17 @@ public class EnemyAi2 : MonoBehaviour
     public float SightRange, AttackRange;
     public bool PlayerInSightRange, PlayerInAttackRange;
 
+    public GameObject Sword;
+    public Sword_Script SS;
 
-    
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("First Person Player").transform;
+        Player = GameObject.Find("PlayerBody").transform;
         Agent = GetComponent<NavMeshAgent>();
+        SS = GameObject.FindObjectOfType(typeof(Sword_Script)) as Sword_Script;
     }
 
-    // Update is called once per frame
     void Update()
     {
         PlayerInSightRange = Physics.CheckSphere(transform.position, SightRange, whatIsPlayer);
@@ -58,7 +59,7 @@ public class EnemyAi2 : MonoBehaviour
 
         Vector3 distanceToWalkPoint = transform.position - walkpoint;
 
-        if(distanceToWalkPoint.magnitude < 1f)
+        if(distanceToWalkPoint.magnitude < 0.5f)
             walkpointset = false;
     }
     
@@ -86,13 +87,13 @@ public class EnemyAi2 : MonoBehaviour
 
         if(!alreadyAttacked)
         {
-            alreadyAttacked = true;
+            SS.SwordAttack();
             Invoke("ResetAttack", timeBetweenAttacks);
         }
     }
 
     private void ResetAttack()
     {
-            alreadyAttacked = false;
+        alreadyAttacked = false;
     }
 }

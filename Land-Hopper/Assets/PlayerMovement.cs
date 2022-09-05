@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public int Health;
     public CharacterController controller;
     public float speed = 12f;
     Vector3 velocity;
