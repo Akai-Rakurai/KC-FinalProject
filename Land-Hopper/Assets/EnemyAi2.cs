@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyAi2 : MonoBehaviour
 {
@@ -26,7 +27,10 @@ public class EnemyAi2 : MonoBehaviour
     public GameObject Sword;
     public Sword_Script SS;
 
-    // Start is called before the first frame update
+    public Text Score;
+    public int Kills;
+    public int score;
+
     void Start()
     {
         Player = GameObject.Find("PlayerBody").transform;
@@ -34,6 +38,7 @@ public class EnemyAi2 : MonoBehaviour
         SS = GameObject.FindObjectOfType(typeof(Sword_Script)) as Sword_Script;
         Health = MaxHealth;
         Bar.SetMaxHealth(MaxHealth);
+        Score.text = score.ToString();
     }
 
     void Update()
@@ -52,6 +57,9 @@ public class EnemyAi2 : MonoBehaviour
         if (Health <= 0)
         {
             Destroy(gameObject);
+            score += 100;
+            Kills++;
+            Score.text = score.ToString();
         }
     }
     
