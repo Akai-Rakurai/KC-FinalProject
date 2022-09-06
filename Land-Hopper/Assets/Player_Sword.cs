@@ -24,11 +24,12 @@ public class Player_Sword : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         print(other.gameObject);
-        if (other.gameObject.tag == "Enemy")
+        if (other.tag == "Enemy")
         {
             other.GetComponent<EnemyAi2>().TakeDamage(Damage);
             print(other.gameObject.tag);
             print(other.gameObject);
+            
         }
 
     }
