@@ -16,8 +16,6 @@ public class Sword_Script : MonoBehaviour
         PM = FindObjectOfType(typeof(PlayerMovement)) as PlayerMovement;
         Animator = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
     public void SwordAttack()
     {
         Animator.SetTrigger("Base_Attack");
