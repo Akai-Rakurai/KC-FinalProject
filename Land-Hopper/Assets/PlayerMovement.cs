@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     public int Health;
+    public int MaxHealth;
+    public HeaalthBar Bar;
+    public Text HealthAmount;
+
     public CharacterController controller;
     public float speed = 12f;
     Vector3 velocity;
@@ -16,7 +21,9 @@ public class PlayerMovement : MonoBehaviour
     bool isgrounded;
     void Start()
     {
-        
+        Health = MaxHealth;
+        Bar.SetMaxHealth(MaxHealth);
+        HealthAmount.text = Health.ToString();
     }
 
     void Update()

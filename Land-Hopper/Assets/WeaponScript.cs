@@ -22,12 +22,15 @@ public class WeaponScript : MonoBehaviour
     public GameObject MuzzleFlash, BulletHoleGraphic;
     GameObject FlashClone;
     public Text Ammo;
+
+    public AmmoBar Bar;
+
     private void Start()
     {
         BulletsLeft = MagazineSize;
+        Bar.SetMaxAmmo(BulletsLeft);
+        Ammo.text = BulletsLeft.ToString();
         ReadyToShoot = true;
-        Ammo.text = BulletsLeft + "/" + MagazineSize;
-
     }
     private void MyInput()
     {
@@ -45,18 +48,21 @@ public class WeaponScript : MonoBehaviour
     private void Reload()
     {
         Reloading = true;
+        Ammo.text = "Reloading";
         Invoke("ReloadFinished", ReloadTime);
     }
     private void ReloadFinished()
     {
         BulletsLeft = MagazineSize;
         Reloading = false;
-        Ammo.text = BulletsLeft + "/" + MagazineSize;
+        Bar.SetAmmo(BulletsLeft);
+        Ammo.text = BulletsLeft.ToString();
     }
     private void ResetShoot()
     {
         ReadyToShoot = true;
-        Ammo.text = BulletsLeft + "/" + MagazineSize;
+        Bar.SetAmmo(BulletsLeft);
+        Ammo.text = BulletsLeft.ToString();
     }
     private void Shoot()
     {

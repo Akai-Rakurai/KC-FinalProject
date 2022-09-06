@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class EnemyAi2 : MonoBehaviour
 {
     public int Health;
+    public int MaxHealth;
+    public HeaalthBar Bar;
 
     public NavMeshAgent Agent;
     public Transform Player;
@@ -30,6 +32,8 @@ public class EnemyAi2 : MonoBehaviour
         Player = GameObject.Find("PlayerBody").transform;
         Agent = GetComponent<NavMeshAgent>();
         SS = GameObject.FindObjectOfType(typeof(Sword_Script)) as Sword_Script;
+        Health = MaxHealth;
+        Bar.SetMaxHealth(MaxHealth);
     }
 
     void Update()
@@ -44,6 +48,7 @@ public class EnemyAi2 : MonoBehaviour
     public void TakeDamage(int Damage)
     {
         Health -= Damage;
+        Bar.SetHealth(Health);
         if (Health <= 0)
         {
             Destroy(gameObject);
