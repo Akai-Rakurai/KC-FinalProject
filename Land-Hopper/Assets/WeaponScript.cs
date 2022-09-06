@@ -8,9 +8,9 @@ public class WeaponScript : MonoBehaviour
     //Gun Stats
     public int Damage;
     public float TimeBetweenShots, Spread, Range, ReloadTime, TimeBetweenShooting;
-    public int MagazineSize, BulletsPerTap;
+    public int MagazineSize, BulletsPerTap, BulletsLeft;
     public bool AllowHold;
-    int BulletsShot, BulletsLeft;
+    int BulletsShot;
 
     bool Shooting, ReadyToShoot, Reloading;
 
@@ -19,7 +19,7 @@ public class WeaponScript : MonoBehaviour
     public RaycastHit RayHit;
     public LayerMask WhatIsEnemy;
 
-    public GameObject MuzzleFlash, BulletHoleGraphic;
+    public GameObject MuzzleFlash, BulletHoleGraphic, Bullet;
     GameObject FlashClone;
     public Text Ammo;
 
@@ -27,7 +27,15 @@ public class WeaponScript : MonoBehaviour
 
     private void Start()
     {
-        BulletsLeft = MagazineSize;
+        if (PlayerPrefs.GetInt("Health") >= 0)
+        {
+            BulletsLeft = MagazineSize;
+        }
+        else if (PlayerPrefs.GetInt("Bullets") >= 0)
+        {
+            BulletsLeft = PlayerPrefs.GetInt("BulletsLeft");
+        }
+        
         Bar.SetMaxAmmo(BulletsLeft);
         Ammo.text = BulletsLeft.ToString();
         ReadyToShoot = true;
@@ -78,11 +86,13 @@ public class WeaponScript : MonoBehaviour
             if (RayHit.collider.CompareTag("Enemy"))
                 //Note to self: Inbetween <> add the name of the enemy script
                 RayHit.collider.GetComponent<EnemyAi2>().TakeDamage(Damage);
+
             print(RayHit.collider.name);
         }
-
+        
         FlashClone = Instantiate(MuzzleFlash, AttackPoint.position, Quaternion.identity, AttackPoint);
         Destroy(FlashClone, 1f);
+        
 
         BulletsLeft--;
         BulletsShot--;

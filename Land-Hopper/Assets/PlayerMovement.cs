@@ -21,7 +21,15 @@ public class PlayerMovement : MonoBehaviour
     bool isgrounded;
     void Start()
     {
-        Health = MaxHealth;
+        if(PlayerPrefs.GetInt("Health") >= 0)
+        {
+            Health = MaxHealth;
+        }
+        else
+        {
+            Health = PlayerPrefs.GetInt("Health");
+        }
+        
         Bar.SetMaxHealth(MaxHealth);
         HealthAmount.text = Health.ToString();
     }
