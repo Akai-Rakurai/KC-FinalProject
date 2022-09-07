@@ -27,10 +27,7 @@ public class EnemyAi2 : MonoBehaviour
     public GameObject Sword;
     public Sword_Script SS;
 
-    public Text Score;
-    public int Kills;
-    public int score;
-
+    Score Score;
     void Start()
     {
         Player = GameObject.Find("PlayerBody").transform;
@@ -38,7 +35,7 @@ public class EnemyAi2 : MonoBehaviour
         SS = GameObject.FindObjectOfType(typeof(Sword_Script)) as Sword_Script;
         Health = MaxHealth;
         Bar.SetMaxHealth(MaxHealth);
-        Score.text = score.ToString();
+        Score = FindObjectOfType(typeof(Score)) as Score;
     }
 
     void Update()
@@ -49,6 +46,7 @@ public class EnemyAi2 : MonoBehaviour
         if (!PlayerInAttackRange && !PlayerInSightRange) patroling();
         if (PlayerInSightRange && !PlayerInAttackRange) ChasePlayer();
         if (PlayerInSightRange && PlayerInAttackRange) AttackPlayer();
+        
     }
     public void TakeDamage(int Damage)
     {
@@ -56,10 +54,8 @@ public class EnemyAi2 : MonoBehaviour
         Bar.SetHealth(Health);
         if (Health <= 0)
         {
+            Score.ScoreIncrease();
             Destroy(gameObject);
-            score += 100;
-            Kills++;
-            Score.text = score.ToString();
         }
     }
     

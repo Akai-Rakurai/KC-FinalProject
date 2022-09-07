@@ -21,16 +21,17 @@ public class PlayerMovement : MonoBehaviour
     bool isgrounded;
     void Start()
     {
-        if(PlayerPrefs.GetInt("Health") >= 0)
+        if (PlayerPrefs.GetInt("Health") <= 0)
         {
             Health = MaxHealth;
         }
-        else
+        else if (PlayerPrefs.GetInt("Health") > 0)
         {
             Health = PlayerPrefs.GetInt("Health");
         }
         
         Bar.SetMaxHealth(MaxHealth);
+        Bar.SetHealth(Health);
         HealthAmount.text = Health.ToString();
     }
 

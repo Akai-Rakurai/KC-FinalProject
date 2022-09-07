@@ -27,16 +27,17 @@ public class WeaponScript : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("Health") >= 0)
+        if (PlayerPrefs.GetInt("Bullets") <= 0)
         {
             BulletsLeft = MagazineSize;
         }
-        else if (PlayerPrefs.GetInt("Bullets") >= 0)
+        else if (PlayerPrefs.GetInt("Bullets") > 0)
         {
-            BulletsLeft = PlayerPrefs.GetInt("BulletsLeft");
+            BulletsLeft = PlayerPrefs.GetInt("Bullets");
         }
         
-        Bar.SetMaxAmmo(BulletsLeft);
+        Bar.SetMaxAmmo(MagazineSize);
+        Bar.SetAmmo(BulletsLeft);
         Ammo.text = BulletsLeft.ToString();
         ReadyToShoot = true;
     }
