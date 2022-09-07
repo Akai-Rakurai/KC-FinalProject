@@ -9,13 +9,17 @@ public class Score : MonoBehaviour
     public int Kills;
     public int score;
 
-    int NeededKills = 10;
+    public int NeededKills = 10;
     public GameObject ScenePortal;
     private void Start()
     {
         score = PlayerPrefs.GetInt("Score");
         ScoreText.text = score.ToString();
         Kills = PlayerPrefs.GetInt("Kills");
+        if (PlayerPrefs.GetInt("Needed") <= 0)
+            NeededKills = 10;
+        else if (PlayerPrefs.GetInt("Needed") > 0)
+          NeededKills = PlayerPrefs.GetInt("Needed");
     }
     private void Update()
     {

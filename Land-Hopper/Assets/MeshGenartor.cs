@@ -22,12 +22,16 @@ public class MeshGenartor : MonoBehaviour
     float minterrainheight;
     float maxterrainheight;
 
-    public float NoiseStrength;
+    float NoiseStrength;
+    public float MaxNoiseStrength;
+    public float MinNoiseStrength;
 
     private void Start()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
+
+        NoiseStrength = Random.Range(MinNoiseStrength, MaxNoiseStrength);
 
         CreateShape();
         UpdateMesh();

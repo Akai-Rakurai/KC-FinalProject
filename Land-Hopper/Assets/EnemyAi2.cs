@@ -51,6 +51,7 @@ public class EnemyAi2 : MonoBehaviour
     public void TakeDamage(int Damage)
     {
         Health -= Damage;
+
         Bar.SetHealth(Health);
         if (Health <= 0)
         {

@@ -14,6 +14,7 @@ public class ButtonScripts : MonoBehaviour
 
     public void Start()
     {
+        Cursor.lockState= CursorLockMode.None;
         resolutions = Screen.resolutions;
 
         resolution.ClearOptions();

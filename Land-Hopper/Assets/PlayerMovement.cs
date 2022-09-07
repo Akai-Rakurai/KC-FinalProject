@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float grounddistance = 0.4f;
     public LayerMask groundMask;
     bool isgrounded;
+
     void Start()
     {
         if (PlayerPrefs.GetInt("Health") <= 0)
@@ -59,5 +61,13 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        if (Health <= 0)
+        {
+            PlayerPrefs.DeleteAll();
+            SceneManager.LoadScene(2);
+        }    
+            
+
     }
 }

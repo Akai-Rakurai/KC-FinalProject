@@ -25,6 +25,9 @@ public class WeaponScript : MonoBehaviour
 
     public AmmoBar Bar;
 
+    public AudioSource EmptyClip;
+    public AudioSource GunShot;
+
     private void Start()
     {
         if (PlayerPrefs.GetInt("Bullets") <= 0)
@@ -53,6 +56,8 @@ public class WeaponScript : MonoBehaviour
             BulletsShot = BulletsPerTap;
             Shoot();
         }
+        else if (BulletsLeft == 0)
+            EmptyClip.Play();
     }
     private void Reload()
     {
@@ -76,6 +81,8 @@ public class WeaponScript : MonoBehaviour
     private void Shoot()
     {
         ReadyToShoot = false;
+
+        GunShot.Play();
 
         float x = Random.Range(-Spread, Spread);
         float y = Random.Range(-Spread, Spread);
