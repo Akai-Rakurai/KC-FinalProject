@@ -5,12 +5,8 @@ using UnityEngine.UI;
 
 public class WeaponScript : MonoBehaviour
 {
-    //Gun Stats
-    public int Damage;
-    public float TimeBetweenShots, Spread, Range, ReloadTime, TimeBetweenShooting;
-    public int MagazineSize, BulletsPerTap, BulletsLeft;
-    public bool AllowHold;
-    int BulletsShot;
+    //SO Ref
+    public Vessel SO;
 
     bool Shooting, ReadyToShoot, Reloading;
 
@@ -30,53 +26,45 @@ public class WeaponScript : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("Bullets") <= 0)
-        {
-            BulletsLeft = MagazineSize;
-        }
-        else if (PlayerPrefs.GetInt("Bullets") > 0)
-        {
-            BulletsLeft = PlayerPrefs.GetInt("Bullets");
-        }
-        
-        Bar.SetMaxAmmo(MagazineSize);
-        Bar.SetAmmo(BulletsLeft);
-        Ammo.text = BulletsLeft.ToString();
+        SO.BulletsLeft = SO.MagazineSize;
+        Bar.SetMaxAmmo(SO.MagazineSize);
+        Bar.SetAmmo(SO.BulletsLeft);
+        Ammo.text = SO.BulletsLeft.ToString();
         ReadyToShoot = true;
     }
     private void MyInput()
     {
-        if (AllowHold) Shooting = Input.GetKey(KeyCode.Mouse0);
+        if (SO.AllowHold) Shooting = Input.GetKey(KeyCode.Mouse0);
         else Shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && BulletsLeft < MagazineSize && !Reloading) Reload();
+        if (Input.GetKeyDown(KeyCode.R) && SO.BulletsLeft < SO.MagazineSize && !Reloading) Reload();
 
-        if (ReadyToShoot && Shooting && !Reloading && BulletsLeft > 0)
+        if (ReadyToShoot && Shooting && !Reloading && SO.BulletsLeft > 0)
         {
-            BulletsShot = BulletsPerTap;
+            SO.BulletsShot = SO.BulletsPerTap;
             Shoot();
         }
-        else if (BulletsLeft == 0)
+        else if (SO.BulletsLeft == 0)
             EmptyClip.Play();
     }
     private void Reload()
     {
         Reloading = true;
         Ammo.text = "Reloading";
-        Invoke("ReloadFinished", ReloadTime);
+        Invoke("ReloadFinished", SO.ReloadTime);
     }
     private void ReloadFinished()
     {
-        BulletsLeft = MagazineSize;
+        SO.BulletsLeft = SO.MagazineSize;
         Reloading = false;
-        Bar.SetAmmo(BulletsLeft);
-        Ammo.text = BulletsLeft.ToString();
+        Bar.SetAmmo(SO.BulletsLeft);
+        Ammo.text = SO.BulletsLeft.ToString();
     }
     private void ResetShoot()
     {
         ReadyToShoot = true;
-        Bar.SetAmmo(BulletsLeft);
-        Ammo.text = BulletsLeft.ToString();
+        Bar.SetAmmo(SO.BulletsLeft);
+        Ammo.text = SO.BulletsLeft.ToString();
     }
     private void Shoot()
     {
@@ -84,16 +72,16 @@ public class WeaponScript : MonoBehaviour
 
         GunShot.Play();
 
-        float x = Random.Range(-Spread, Spread);
-        float y = Random.Range(-Spread, Spread);
+        float x = Random.Range(-SO.Spread, SO.Spread);
+        float y = Random.Range(-SO.Spread, SO.Spread);
 
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
-        if (Physics.Raycast(fpsCam.transform.position, direction, out RayHit, Range, WhatIsEnemy))
+        if (Physics.Raycast(fpsCam.transform.position, direction, out RayHit, SO.Range, WhatIsEnemy))
         {
             if (RayHit.collider.CompareTag("Enemy"))
                 //Note to self: Inbetween <> add the name of the enemy script
-                RayHit.collider.GetComponent<EnemyAi2>().TakeDamage(Damage);
+                RayHit.collider.GetComponent<EnemyAi2>().TakeDamage(SO.Damage);
 
             print(RayHit.collider.name);
         }
@@ -102,13 +90,13 @@ public class WeaponScript : MonoBehaviour
         Destroy(FlashClone, 1f);
         
 
-        BulletsLeft--;
-        BulletsShot--;
+        SO.BulletsLeft--;
+        SO.BulletsShot--;
 
-            Invoke("ResetShoot", TimeBetweenShooting);
+            Invoke("ResetShoot", SO.TimeBetweenShooting);
 
-        if (BulletsShot > 0 && BulletsLeft > 0 && ReadyToShoot)
-        Invoke("Shoot", TimeBetweenShots);
+        if (SO.BulletsShot > 0 && SO.BulletsLeft > 0 && ReadyToShoot)
+        Invoke("Shoot", SO.TimeBetweenShots);
     }
     private void FixedUpdate()
     {

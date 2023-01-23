@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
 
             Instantiate(Enemy, spawnPosition + transform.TransformPoint(0, 0, 0), gameObject.transform.rotation);
             SpawnedAmount++;
-            if(SpawnedAmount > 10)
+            if(SpawnedAmount >= 10)
                 stop = true;
 
             yield

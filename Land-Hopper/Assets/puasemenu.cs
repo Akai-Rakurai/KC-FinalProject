@@ -7,6 +7,7 @@ public class puasemenu : MonoBehaviour
 {
     public static bool IsGamePuased = false;
     public GameObject PauseUi;
+    public Vessel SO;
 
     // Start is called before the first frame update
     void Start()
@@ -48,12 +49,13 @@ public class puasemenu : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()
     {
         Application.Quit();
         print("Quit");
+        SO.SetData();
     }
 }

@@ -4855,8 +4855,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6a4144fc7675b489bca9751cdb6b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SO: {fileID: 11400000, guid: 2ec7e545303f0e24e8bc52d79ac8183e, type: 2}
   audioMixer: {fileID: 24100000, guid: fc9a029d83bc9a646b488087fa6fb385, type: 2}
   resolution: {fileID: 1832176142}
+  Quality: {fileID: 538687183}
 --- !u!4 &2134363214
 Transform:
   m_ObjectHideFlags: 0

@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Island.unity
-    guid: 2225e132c9b321f4e9938f32484717a3
-  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: d021671a37b82cb4c82822ea8cfa4996
   - enabled: 1
+    path: Assets/Scenes/Island.unity
+    guid: 2225e132c9b321f4e9938f32484717a3
+  - enabled: 1
     path: Assets/Scenes/Death.unity
     guid: 0cb62fe478d216849b3cc13d759a02d0
+  - enabled: 1
+    path: Assets/Scenes/Item Room.unity
+    guid: d46edf9a82ea8a54a82930221ce427f7
+  - enabled: 0
+    path: Assets/Scenes/Testing.unity
+    guid: 263cb7c2ca1ce0343a81711d3dd6f66d
   m_configObjects: {}

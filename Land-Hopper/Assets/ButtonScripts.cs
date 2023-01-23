@@ -7,10 +7,13 @@ using UnityEngine.UI;
 
 public class ButtonScripts : MonoBehaviour
 {
+    public Vessel SO;
+
     public AudioMixer audioMixer;
 
     Resolution[] resolutions;
     public Dropdown resolution;
+    public Dropdown Quality;
 
     public void Start()
     {
@@ -38,15 +41,18 @@ public class ButtonScripts : MonoBehaviour
         resolution.AddOptions(options);
         resolution.value = currentresolutionindex;
         resolution.RefreshShownValue();
+
+        Quality.value = 4;
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(0);
+        SO.SetData();
+        SceneManager.LoadScene(1);
     }
     public void QuitGame()
     {
         print("Quit");
-        PlayerPrefs.DeleteAll();
+        SO.SetData();
         Application.Quit();
     }
     public void VolumeSlider(float volume)
@@ -56,6 +62,7 @@ public class ButtonScripts : MonoBehaviour
     public void SetQuality(int QualityIndex)
     {
         QualitySettings.SetQualityLevel(QualityIndex);
+
     }
     public void SetFullScreen(bool isFullScreen)
     {

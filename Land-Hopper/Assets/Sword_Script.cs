@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Sword_Script : MonoBehaviour
 {
+    public Vessel SO;
+
     public PlayerMovement PM;
     public int Damage;
     private Animator Animator;
@@ -24,10 +26,10 @@ public class Sword_Script : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            PM.Health -= Damage;
+            SO.Health -= Damage;
 
-            Bar.SetHealth(PM.Health);
-            HealthAmount.text = PM.Health.ToString();
+            Bar.SetHealth(SO.Health);
+            HealthAmount.text = SO.Health.ToString();
         }
     }
 }

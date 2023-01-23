@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int Health;
-    public int MaxHealth;
+    public Vessel SO;
+
     public HeaalthBar Bar;
     public Text HealthAmount;
 
@@ -23,18 +23,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.GetInt("Health") <= 0)
-        {
-            Health = MaxHealth;
-        }
-        else if (PlayerPrefs.GetInt("Health") > 0)
-        {
-            Health = PlayerPrefs.GetInt("Health");
-        }
-        
-        Bar.SetMaxHealth(MaxHealth);
-        Bar.SetHealth(Health);
-        HealthAmount.text = Health.ToString();
+        if(SO.Health == 0)
+        SO.Health = SO.MaxHealth;
+
+        Bar.SetMaxHealth(SO.MaxHealth);
+        Bar.SetHealth(SO.Health);
+        HealthAmount.text = SO.Health.ToString();
     }
 
     void Update()
@@ -62,9 +56,9 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-        if (Health <= 0)
+        if (SO.Health < 0)
         {
-            PlayerPrefs.DeleteAll();
+            SO.SetData();
             SceneManager.LoadScene(2);
         }    
             
